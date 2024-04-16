@@ -8,6 +8,7 @@ namespace Units
         private UnityEngine.Camera _mainCamera;
         private NavMeshAgent _agent;
         public LayerMask ground;
+        public LayerMask pileDeFer;
         private void Start()
         {
             _mainCamera = UnityEngine.Camera.main;
@@ -25,7 +26,19 @@ namespace Units
                 {
                     _agent.SetDestination(hit.point);
                 }
+                else
+                {
+                    if(Physics.Raycast(ray, out hit, Mathf.Infinity,pileDeFer ))
+                    {
+                        _agent.SetDestination(hit.point);
+                    }
+                }
             }
+        }
+
+        public void GoToBase()
+        {
+            
         }
     }
 }
