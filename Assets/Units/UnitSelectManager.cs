@@ -79,23 +79,20 @@ namespace Units
             if (unitsSelected.Contains(unit) == false)
             {
                 unitsSelected.Add(unit);
-                EnableUnitMove(unit, true);
-                TriggerSelectIndicator(unit, true);
+                SelectUnit(unit, true);
             }
             else
             {
-                EnableUnitMove(unit, false);
-                TriggerSelectIndicator(unit, false);
+                SelectUnit(unit, false);
                 unitsSelected.Remove(unit);
             }
         }
 
-        private void DeselectAll()
+        public void DeselectAll()
         {
             foreach (var unit in unitsSelected)
             {
-                EnableUnitMove(unit, false);
-                TriggerSelectIndicator(unit, false);
+                SelectUnit(unit, false);
             }
             groundMarker.SetActive(false);
             unitsSelected.Clear();
@@ -105,8 +102,23 @@ namespace Units
         {
             DeselectAll();
             unitsSelected.Add(unit);
-            TriggerSelectIndicator(unit, true);
-            EnableUnitMove(unit, true);
+            SelectUnit(unit, true);
+        }
+        
+        public void DragSelect(GameObject unit)
+        {
+            if (unitsSelected.Contains(unit) == false)
+            {
+                unitsSelected.Add(unit);
+                SelectUnit(unit, true);
+            }
+        }
+
+
+        private void SelectUnit(GameObject unit, bool isSelected)
+        {
+            TriggerSelectIndicator(unit, isSelected);
+            EnableUnitMove(unit, isSelected);
         }
 
         private void EnableUnitMove(GameObject unit, bool canMove)
@@ -118,5 +130,6 @@ namespace Units
         {
             unit.transform.GetChild(0).gameObject.SetActive(isSelected);
         }
+        
     }
 }
