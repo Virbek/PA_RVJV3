@@ -5,13 +5,16 @@ namespace Units
 {
     public class DeplacementUnit : MonoBehaviour
     {
-        private UnityEngine.Camera _mainCamera;
-        private NavMeshAgent _agent;
+        UnityEngine.Camera mainCamera;
+        NavMeshAgent agent;
         public LayerMask ground;
+
+        public bool isCommandedToMove;
+        
         private void Start()
         {
-            _mainCamera = UnityEngine.Camera.main;
-            _agent = GetComponent<NavMeshAgent>();
+            mainCamera = UnityEngine.Camera.main;
+            agent = GetComponent<NavMeshAgent>();
         }
     
         // Update is called once per frame
@@ -20,11 +23,17 @@ namespace Units
             if (Input.GetMouseButtonDown(1))
             {
                 RaycastHit hit;
-                var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
                 {
-                    _agent.SetDestination(hit.point);
+                    isCommandedToMove = true;
+                    agent.SetDestination(hit.point);
                 }
+            }
+
+            if (agent.hasPath == false || agent.remainingDistance <= agent.stoppingDistance)
+            {
+                isCommandedToMove = false;
             }
         }
     }

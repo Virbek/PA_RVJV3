@@ -14,7 +14,10 @@ namespace Units
 
         public LayerMask clickable;
         public LayerMask ground;
+        public LayerMask attackable;
         public GameObject groundMarker;
+
+        public bool attackCursorVisible;
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -72,7 +75,53 @@ namespace Units
                     groundMarker.SetActive(true);
                 }
             }
+
+            if (unitsSelected.Count > 0 && AtleasOneOffensiveUnit(unitsSelected))
+            {
+                RaycastHit hit;
+                var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                //si on touche un objet clickable
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, attackable))
+                {
+                    Debug.Log("Enemy Hovered with mouse");
+
+                    attackCursorVisible = true;
+
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        Transform target = hit.transform;
+
+                        foreach (GameObject unit in unitsSelected)
+                        {
+                            if (unit.GetComponent<AttackController>())
+                            {
+                                unit.GetComponent<AttackController>().targetToAttack = target;
+                            }
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    attackCursorVisible = false;
+                }
+            }
         }
+
+        
+        
+        private bool AtleasOneOffensiveUnit(List<GameObject> gameObjects)
+        {
+            foreach (GameObject unit in unitsSelected)
+            {
+                if (unit.GetComponent<AttackController>())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         private void MultSelect(GameObject unit)
         {
