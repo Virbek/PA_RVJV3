@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Units
@@ -10,10 +11,14 @@ namespace Units
         public List<GameObject> allUnitsList = new List<GameObject>();
         public List<GameObject> unitsSelected = new List<GameObject>();
 
+
+        public GameObject Hdv;
+        
         private UnityEngine.Camera _mainCamera;
 
         public LayerMask clickable;
         public LayerMask ground;
+        public LayerMask ressources;
         public GameObject groundMarker;
         private void Awake()
         {
@@ -64,8 +69,18 @@ namespace Units
             {
                 RaycastHit hit;
                 var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                //si on touche un objet clickable
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+                if(Physics.Raycast(ray, out hit, Mathf.Infinity, ressources))
+                {
+                    foreach (var unit in unitsSelected)
+                    {
+                        var collect = unit.GetComponent<InCollect>();
+                        if (!collect)
+                        {
+                            unit.GetComponent<GoDestination>().target = hit.transform.position;
+                            unit.GetComponent<GoDestination>().enabled = true;
+                        }
+                    }
+                }else if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
                 {
                     groundMarker.transform.position = hit.point;
                     groundMarker.SetActive(false);

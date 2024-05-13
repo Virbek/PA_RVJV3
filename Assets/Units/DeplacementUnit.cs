@@ -7,7 +7,10 @@ namespace Units
     {
         private UnityEngine.Camera _mainCamera;
         private NavMeshAgent _agent;
+        [SerializeField]
+        private GameObject Base;
         public LayerMask ground;
+        public LayerMask ressources;
         private void Start()
         {
             _mainCamera = UnityEngine.Camera.main;
@@ -21,7 +24,11 @@ namespace Units
             {
                 RaycastHit hit;
                 var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+                
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, ressources))
+                {
+                    return;
+                }else if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
                 {
                     _agent.SetDestination(hit.point);
                 }

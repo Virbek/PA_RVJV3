@@ -50,7 +50,6 @@ namespace Batiment
                         {
                             m.SetPlacementMode(PlacementMode.Fixed);
                             RessourcesManager.Instance.ModifNombreFer(-100);
-                            m.InvokeUnit();
                             if (RessourcesManager.Instance.GetNombreFer() >= 100)
                             {
                                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))

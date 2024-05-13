@@ -9,10 +9,12 @@ public class RessourcesManager : MonoBehaviour
 {
     public static RessourcesManager Instance { get; set; }
 
-    private int _numberFer;
+    private double _numberFer;
     private int _numberHuman;
+    private double _numberCharbon;
 
     [SerializeField] private Text nombreFer;
+    [SerializeField] private Text nombreCharbon;
 
     private void Awake()
     {
@@ -30,19 +32,32 @@ public class RessourcesManager : MonoBehaviour
     private void Start()
     {
         _numberFer = 200;
+        _numberCharbon = 0;
         nombreFer.text = _numberFer.ToString();
     }
 
-    public void ModifNombreFer(int fer)
+    public void ModifNombreFer(double fer)
     {
         _numberFer = _numberFer + fer;
         nombreFer.text = _numberFer.ToString();
 
     }
 
-    public int GetNombreFer()
+    public double GetNombreFer()
     {
         return _numberFer;
+    }
+    
+    public void ModifNombreCharbon(double charbon)
+    {
+        _numberCharbon = _numberCharbon + charbon;
+        nombreCharbon.text = _numberCharbon.ToString();
+
+    }
+
+    public double GetNombreCharbon()
+    {
+        return _numberCharbon;
     }
 
 }

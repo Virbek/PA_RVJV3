@@ -1,44 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Units;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CollectFer : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _unitIn = new List<GameObject>(2);
-    private float _startCollect = 0f;
-    private float _endCollect = 5f;
-    
-    // Start is called before the first frame update
-    void Start()
+    public double fer;
+
+
+    private void Start()
     {
-        
+        fer = gameObject.GetComponent<RessourcesIn>().nombreFer;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.GetComponent<RessourcesIn>().nombreFer == 0)
+        {
+            other.gameObject.GetComponent<GoDestination>().enabled = false;
+            other.gameObject.GetComponent<Collect>().enabled = true;
+            other.gameObject.GetComponent<Collect>().ressources = gameObject;  
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        fer = gameObject.GetComponent<RessourcesIn>().nombreFer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_startCollect >= _endCollect)
+        if (fer == 0)
         {
-            RessourcesManager.Instance.ModifNombreFer(200);
-            _startCollect = 0f;
-            _unitIn[0].transform.position = transform.position + new Vector3(-2, 0, 0);
-            _unitIn[0].gameObject.SetActive(true);
-            _unitIn.Remove(_unitIn[0]);
-            
-        }
-
-        if (_unitIn.Count != 0)
-        {
-            _startCollect += Time.deltaTime;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other){
-        if (other.gameObject.CompareTag("Unit"))
-        {
-            _unitIn.Add(other.gameObject);
-            other.gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
     

@@ -89,6 +89,10 @@ namespace Batiment
             {
                 foreach (MeshRenderer r in meshComponents)
                     r.sharedMaterials = _initialMaterials[r].ToArray();
+                if (gameObject.CompareTag("maison"))
+                {
+                    gameObject.GetComponent<InvokeUnit>().enabled = true;
+                }
             }
             else
             {
@@ -126,14 +130,6 @@ namespace Batiment
         private bool _IsGround(GameObject o)
         {
             return ((1 << o.layer) & PlacerBatiment.Instance.groundLayerMask.value) != 0;
-        }
-
-        public void InvokeUnit()
-        {
-            var newPosition = transform.position + new Vector3(-2, 0, 0);
-            var newUnit = Instantiate(unit, newPosition ,Quaternion.identity);
-            newUnit.layer = LayerMask.NameToLayer("clickable");
-
         }
 
     }
