@@ -147,6 +147,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  isCommandedToMove: 0
 --- !u!114 &7518866629580169157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,8 @@ GameObject:
   - component: {fileID: 6695675062151999032}
   - component: {fileID: -6821699987839583878}
   - component: {fileID: 5263859183948569918}
+  - component: {fileID: 1563962030122251122}
+  - component: {fileID: 3373353156647631036}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -281,12 +284,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 4729131390188136150}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -309,6 +312,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  isCommandedToMove: 0
 --- !u!114 &-6821699987839583878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +338,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToAttack: {fileID: 0}
+  idleStateMaterial: {fileID: 2100000, guid: 7dcbad819a9b7e94db570dbf1ef94ac8, type: 2}
+  followStateMaterial: {fileID: 2100000, guid: 144450d4e6505b04ebb72e29df47d336, type: 2}
+  attackStateMaterial: {fileID: 2100000, guid: c30b6aa9e5dda8846b34b0f59b13a119, type: 2}
+--- !u!95 &1563962030122251122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4729131390188136150}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7fcb3c7cc39720e4283b3efe1353c0b8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &3373353156647631036
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4729131390188136150}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8339112689472719307
 GameObject:
   m_ObjectHideFlags: 0

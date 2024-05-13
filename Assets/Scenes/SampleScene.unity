@@ -339,53 +339,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7837200970825448440, guid: d583ef0616e2ba44e82a31c6a49c4a74, type: 3}
   m_PrefabInstance: {fileID: 6630839366042308442}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &591918598 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4729131390188136150, guid: f05882c8dec16f149b570259a4d09586, type: 3}
-  m_PrefabInstance: {fileID: 893985505}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &591918599
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591918598}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &591918600
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591918598}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7fcb3c7cc39720e4283b3efe1353c0b8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,14 +541,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 709236085620899890, guid: f05882c8dec16f149b570259a4d09586, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 709236085620899890, guid: f05882c8dec16f149b570259a4d09586, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4729131390188136150, guid: f05882c8dec16f149b570259a4d09586, type: 3}
       propertyPath: m_Name
       value: Unit
@@ -640,16 +585,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6695675062151999032, guid: f05882c8dec16f149b570259a4d09586, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4729131390188136150, guid: f05882c8dec16f149b570259a4d09586, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 591918600}
-    - targetCorrespondingSourceObject: {fileID: 4729131390188136150, guid: f05882c8dec16f149b570259a4d09586, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 591918599}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f05882c8dec16f149b570259a4d09586, type: 3}
 --- !u!1 &937436438 stripped
 GameObject:

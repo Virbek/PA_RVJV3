@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Units;
 using UnityEngine;
 using UnityEngine.AI;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class UnitAttackState : StateMachineBehaviour
 {
-    /*
+    
     NavMeshAgent agent;
     AttackController attackController;
 
@@ -14,18 +18,23 @@ public class UnitAttackState : StateMachineBehaviour
     {
         agent = animator.GetComponent<NavMeshAgent>();
         attackController = animator.GetComponent<AttackController>();
+        attackController.SetAttackMaterial();
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (attackController.targetToAttack != null && animator.transform.GetComponent<UnitMovement>().isCommandedToMove == false)
+        if (attackController.targetToAttack != null && animator.transform.GetComponent<DeplacementUnit>().isCommandedToMove == false)
         {
             LookAtPlayer();
             
-            agent.SetDestination(attackController.targetToAttack);
+            agent.SetDestination(attackController.targetToAttack.position);
+
+            var damageInInflict = attackController.unitDamage;
+
+            attackController.targetToAttack.GetComponent<Enemy>().RecieveDamage(damageInInflict);
 
             float distanceFromTarget = Vector3.Distance(attackController.targetToAttack.position, animator.transform.position);
-            if (distanceFromTarget > attackingDinstance || attackController.targetToAttack == null)
+            if (distanceFromTarget > stopAttackingDistance || attackController.targetToAttack == null)
             {
                 agent.SetDestination(animator.transform.position);
                 animator.SetBool("isAttacking", false);
@@ -33,7 +42,7 @@ public class UnitAttackState : StateMachineBehaviour
         }
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private void LookAtPlayer()
     {
         Vector3 direction = attackController.targetToAttack.position - agent.transform.position;
         agent.transform.rotation = Quaternion.LookRotation(direction);
@@ -41,6 +50,11 @@ public class UnitAttackState : StateMachineBehaviour
         var yRotation = agent.transform.eulerAngles.y;
         agent.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
-    */
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }
+    
 }
 

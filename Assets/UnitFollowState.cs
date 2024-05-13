@@ -17,6 +17,7 @@ public class UnitFollowState : StateMachineBehaviour
     {
         attackController = animator.transform.GetComponent<AttackController>();
         agent = animator.transform.GetComponent<NavMeshAgent>();
+        attackController.SetFollowMaterial();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,7 +25,7 @@ public class UnitFollowState : StateMachineBehaviour
     {
         if (attackController.targetToAttack == null)
         {
-            animator.SetBool("IsFollowing", false);
+            animator.SetBool("isFollowing", false);
         }
         else
         {
@@ -33,11 +34,11 @@ public class UnitFollowState : StateMachineBehaviour
                 agent.SetDestination(attackController.targetToAttack.position);
                 animator.transform.LookAt(attackController.targetToAttack);
 
-                //float distanceFromTarget = Vector3.Distance(attackController.targetToAttack.position, animator.transform.position);
-                //if (distanceFromTarget < attackingDistance)
-                //{
-                //animator.SetBool("IsAttacking", true);
-                //}
+                float distanceFromTarget = Vector3.Distance(attackController.targetToAttack.position, animator.transform.position);
+                if (distanceFromTarget < attackingDistance)
+                {
+                animator.SetBool("isAttacking", true);
+                }
             }
         }
 
