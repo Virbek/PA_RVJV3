@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 1563962030122251122}
   - component: {fileID: 3373353156647631036}
   m_Layer: 6
-  m_Name: Unit
+  m_Name: AttackerUnit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,6 +341,7 @@ MonoBehaviour:
   idleStateMaterial: {fileID: 2100000, guid: 7dcbad819a9b7e94db570dbf1ef94ac8, type: 2}
   followStateMaterial: {fileID: 2100000, guid: 144450d4e6505b04ebb72e29df47d336, type: 2}
   attackStateMaterial: {fileID: 2100000, guid: c30b6aa9e5dda8846b34b0f59b13a119, type: 2}
+  unitDamage: 0
 --- !u!95 &1563962030122251122
 Animator:
   serializedVersion: 5
