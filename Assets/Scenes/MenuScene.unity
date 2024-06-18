@@ -1656,7 +1656,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1820602683}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: ChangeScene
+        m_MethodName: jouer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4593,7 +4593,7 @@ Canvas:
   m_GameObject: {fileID: 1820602678}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -4639,14 +4639,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1820602678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f7a615d929da704fb1d8418aaf189ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0948b385a3ee2419bdf2d794c3b1e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1820602678}
   optionsPanel: {fileID: 1605375625}
-  resolutionDropdown: {fileID: 0}
+  resolutionDropdown: {fileID: 485712618}
   fullscreenToggle: {fileID: 0}
-  applyButton: {fileID: 0}
+  applyButton: {fileID: 1734828746}
   Panel: {fileID: 0}
 --- !u!1 &1847904884
 GameObject:

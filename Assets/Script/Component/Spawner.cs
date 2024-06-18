@@ -1,7 +1,12 @@
-﻿namespace Script.Component
+﻿using Unity.Entities;
+
+namespace Script.Component
 {
-    public struct Spawner
+    public struct Spawner : IComponentData
     {
-        
+        public Entity WarPrefab;
+        public Entity ArrPrefab;
+        public Entity GeaPrefab;
+        public Entity GoldPrefab;
     }
 }

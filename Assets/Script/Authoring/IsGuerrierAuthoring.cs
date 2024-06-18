@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Script.Authoring
 {
-    public class IsGeantAuthoring : MonoBehaviour
+    public class IsGuerrierAuthoring : MonoBehaviour
     {
-        public class Baker : Baker<IsGeantAuthoring>
+        public class Baker : Baker<IsGuerrierAuthoring>
         {
-            public override void Bake(IsGeantAuthoring authoring)
+            public override void Bake(IsGuerrierAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 
-                AddComponent<IsGeant>(entity);
+                AddComponent<IsGuerrier>(entity);
             }
         }
     }

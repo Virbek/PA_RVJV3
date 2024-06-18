@@ -2,7 +2,7 @@
 
 namespace Script.Component
 {
-    public struct IsGuerrier : IComponentData
+    public struct IsArcher : IComponentData
     {
         
     }

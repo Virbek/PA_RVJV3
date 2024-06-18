@@ -11,16 +11,19 @@ namespace Script.System
 
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (timeToCollect, entity) in SystemAPI.Query<RefRW<Collectable>>()
-                         .WithAll<IsRessourceGold>()
-                         .WithEntityAccess()
-                    )
+            if (NumberRessources.gold <= 1500)
             {
-                timeToCollect.ValueRW.timeToCollect += Time.deltaTime;
-                if (timeToCollect.ValueRO.timeToCollect > 30f)
+                foreach (var (timeToCollect, entity) in SystemAPI.Query<RefRW<Collectable>>()
+                             .WithAll<IsRessourceGold>()
+                             .WithEntityAccess()
+                        )
                 {
-                    RessourceManager.Instance.AddGold(50);
-                    timeToCollect.ValueRW.timeToCollect = 0;
+                    timeToCollect.ValueRW.timeToCollect += Time.deltaTime;
+                    if (timeToCollect.ValueRO.timeToCollect >= 5.0f)
+                    {
+                        NumberRessources.gold += 50;
+                        timeToCollect.ValueRW.timeToCollect = 0;
+                    }
                 }
             }
         }

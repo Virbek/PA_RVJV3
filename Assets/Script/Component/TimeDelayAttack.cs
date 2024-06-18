@@ -1,7 +1,9 @@
-﻿namespace Script.Component
+﻿using Unity.Entities;
+
+namespace Script.Component
 {
-    public struct TimeDelayAttack
+    public struct TimeDelayAttack : IComponentData
     {
-        
+        public float timeDelayAttack;
     }
 }

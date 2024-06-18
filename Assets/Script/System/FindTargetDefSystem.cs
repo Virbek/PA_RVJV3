@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Component;
+using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 partial struct FindTargetDefSystem : ISystem
 {
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         var ecb = new EntityCommandBuffer(Allocator.Temp);
@@ -12,6 +18,7 @@ partial struct FindTargetDefSystem : ISystem
         foreach(var (localTransform, entity) 
                 in SystemAPI.Query<RefRW<LocalTransform>>()
                     .WithAll<IsUnit>()
+                    .WithAll<IsGeant>()
                     .WithNone<Target>()
                     .WithNone<OnAttack>()
                     .WithEntityAccess()
@@ -21,6 +28,7 @@ partial struct FindTargetDefSystem : ISystem
             Entity? targetEntity = null ;
             foreach(var(batTransform, batEntity) in SystemAPI.Query<RefRW<LocalTransform>>()
                         .WithAll<IsBat>()
+                        .WithAll<IsDefense>()
                         .WithEntityAccess()
                    )
             {

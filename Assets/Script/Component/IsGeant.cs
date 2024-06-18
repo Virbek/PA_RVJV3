@@ -1,6 +1,8 @@
-﻿namespace Script.Component
+﻿using Unity.Entities;
+
+namespace Script.Component
 {
-    public struct IsGeant
+    public struct IsGeant : IComponentData
     {
         
     }

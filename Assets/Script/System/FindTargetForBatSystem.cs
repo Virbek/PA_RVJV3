@@ -1,4 +1,5 @@
 using Script.Component;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
@@ -7,6 +8,7 @@ using NotImplementedException = System.NotImplementedException;
 
 namespace Script.System
 { 
+    [BurstCompile]
     partial struct FindTargetForBatSystem : ISystem
     {
         public void OnUpdate(ref SystemState state)

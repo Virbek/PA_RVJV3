@@ -1,4 +1,5 @@
 using Script.Component;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -9,6 +10,7 @@ namespace Script.System
 {
     partial struct FindTargetSystem : ISystem
     {
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
@@ -16,6 +18,7 @@ namespace Script.System
             foreach(var (localTransform, entity) 
                     in SystemAPI.Query<RefRW<LocalTransform>>()
                         .WithAll<IsUnit>()
+                        .WithNone<IsGeant>()
                         .WithNone<Target>()
                         .WithNone<OnAttack>()
                         .WithEntityAccess()

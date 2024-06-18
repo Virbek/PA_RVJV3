@@ -1,18 +1,20 @@
 using Script.Component;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Script.System
 {
+    [BurstCompile]
     public partial struct AttackSystem : ISystem
     {
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-            foreach (var (delay, degat, target, entity)
-                     in SystemAPI.Query<RefRW<DelayAttack>, RefRO<Puissance>, RefRO<Target>>()
+            foreach (var (delay, degat, target,timeDelayAttack, entity)
+                     in SystemAPI.Query<RefRW<DelayAttack>, RefRO<Puissance>, RefRO<Target>, RefRO<TimeDelayAttack>>()
                          .WithAll<OnAttack>()
                          .WithEntityAccess()
                     )
@@ -26,7 +28,7 @@ namespace Script.System
                 }
                 
                 delay.ValueRW.delayAttack += Time.deltaTime;
-                if (delay.ValueRO.delayAttack >= 1.0){
+                if (delay.ValueRO.delayAttack >= timeDelayAttack.ValueRO.timeDelayAttack){
                     var targetPv = state.EntityManager.GetComponentData<NombrePv>(targetEntity);
                     targetPv.pv -= degat.ValueRO.puissance;
                     state.EntityManager.SetComponentData(targetEntity, targetPv);

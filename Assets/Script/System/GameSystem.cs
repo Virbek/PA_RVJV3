@@ -9,16 +9,7 @@ partial struct GameSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
-        var nombreUnit = 0;
         var nombreBat = 0;
-        foreach (var (unitTransform, unitEntity) 
-                     in SystemAPI.Query<RefRO<LocalTransform>>()
-                         .WithAll<IsUnit>()
-                         .WithEntityAccess()
-                 )
-        {
-            nombreUnit += 1;
-        }
         foreach (var (batTransform, batEntity) 
                  in SystemAPI.Query<RefRO<LocalTransform>>()
                      .WithAll<IsBat>()
@@ -27,15 +18,7 @@ partial struct GameSystem : ISystem
         {
             nombreBat += 1;
         }
-
-        if (nombreUnit == 0)
-        {
-            return;
-        }
+        NumberUnit.bat = nombreBat;
         
-        if(nombreBat == 0)
-        {
-            return;
-        }
     }
 }
