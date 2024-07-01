@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2540635548681147118}
   - component: {fileID: 8685102381944327245}
   - component: {fileID: 8895758664311222589}
+  - component: {fileID: 3354298758669773098}
   m_Layer: 0
   m_Name: Ballon
   m_TagString: Untagged
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041e077a28184e2ca1a6eb8c1f75c875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 8
 --- !u!114 &2248217268889029279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21f22048f454d4eb004a0bbcec54971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayAttack: 0
+  delayAttack: 2
 --- !u!114 &1999212468862944191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,3 +231,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1617189155268151100, guid: 88fc1bd2579409b4a9d61c11186bffce, type: 3}
+--- !u!114 &3354298758669773098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981776002970163247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7e94e2421546b090f9e3a3031d81f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timedelayAttack: 1

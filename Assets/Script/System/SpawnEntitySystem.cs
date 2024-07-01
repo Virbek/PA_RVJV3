@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 
 namespace Script.System
@@ -50,6 +51,7 @@ namespace Script.System
                 else if (spawnSingleton.unit == 1 )
                 {
                     var ent = ecb.Instantiate(spawnerComponent.ValueRO.ArrPrefab);
+                    ecb.RemoveComponent<PhysicsMass>(ent);
                     ecb.SetComponent(ent, new LocalTransform
                     {
                         Position = spawnSingleton.position,
@@ -66,7 +68,26 @@ namespace Script.System
                         Rotation = quaternion.identity,
                         Scale = 1f
                     });
+                }else if (spawnSingleton.unit == 3 )
+                {
+                    var ent = ecb.Instantiate(spawnerComponent.ValueRO.BallPrefab);
+                    ecb.SetComponent(ent, new LocalTransform
+                    {
+                        Position = spawnSingleton.position,
+                        Rotation = quaternion.identity,
+                        Scale = 1f
+                    });
+                }else if (spawnSingleton.unit == 4 )
+                {
+                    var ent = ecb.Instantiate(spawnerComponent.ValueRO.BallDefPrefab);
+                    ecb.SetComponent(ent, new LocalTransform
+                    {
+                        Position = spawnSingleton.position,
+                        Rotation = quaternion.identity,
+                        Scale = 1f
+                    });
                 }
+                
                 if (spawnSingleton.unit == 5)
                 {
                     var ent = ecb.Instantiate(spawnerComponent.ValueRO.GoldPrefab);

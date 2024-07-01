@@ -44,6 +44,37 @@ namespace Script.System
                     ecb.AddComponent<OnAttack>(entity);
                 }
             }
+            foreach (var (localTransform, speed, range, target,entity) 
+                     in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Speed>, RefRO<RangeAttack>, RefRO<Target>>()
+                         .WithAll<IsProj>()
+                         .WithAll<Move>()
+                         .WithEntityAccess()
+                    )
+            {
+                var targetEntity = target.ValueRO.target;
+                if (state.EntityManager.HasComponent<Disabled>(targetEntity))
+                {
+                    ecb.AddComponent<Disabled>(entity);
+                    ecb.RemoveComponent<Move>(entity);
+                    ecb.RemoveComponent<IsProj>(entity);
+                    ecb.RemoveComponent<Target>(entity);
+                    continue;
+                }
+
+                var targetLocalTransform = state.EntityManager.GetComponentData<LocalTransform>(targetEntity);
+                var directionVector = targetLocalTransform.Position - localTransform.ValueRO.Position;
+                var distanceToTarget = math.length(directionVector);
+
+                var wishedMovementDistance = speed.ValueRO.speed * SystemAPI.Time.DeltaTime;
+                var effectiveMovementDistance = math.min(distanceToTarget, wishedMovementDistance);
+
+                localTransform.ValueRW.Position += math.normalizesafe(directionVector) * effectiveMovementDistance;
+
+                if (distanceToTarget <= range.ValueRO.rangeAttack){
+                    ecb.RemoveComponent<Move>(entity);
+                    ecb.AddComponent<OnAttack>(entity);
+                }
+            }
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
         }

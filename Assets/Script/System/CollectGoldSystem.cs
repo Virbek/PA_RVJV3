@@ -21,7 +21,7 @@ namespace Script.System
                     timeToCollect.ValueRW.timeToCollect += Time.deltaTime;
                     if (timeToCollect.ValueRO.timeToCollect >= 5.0f)
                     {
-                        NumberRessources.gold += 50;
+                        NumberRessources.gold += 200;
                         timeToCollect.ValueRW.timeToCollect = 0;
                     }
                 }

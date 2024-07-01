@@ -20,8 +20,9 @@ namespace Script.Game
 
         void Start()
         {
-            World.DefaultGameObjectInjectionWorld.EntityManager.CreateSingleton<WantToSpawn>();
             PopulateResolutionDropdown();
+            GameStat.collecteur = 0;
+            GameStat.caserne = 0;
             applyButton.onClick.AddListener(ApplySettings);
         }
 
@@ -39,7 +40,11 @@ namespace Script.Game
 
         public void jouer()
         {
+            World.DefaultGameObjectInjectionWorld.EntityManager.CreateSingleton<WantToSpawn>();
             GameStat.collecteur += 1;
+            GameStat.caserne += 1;
+            GameStat.NiveauHdv = 1;
+            GameStat.Niveau = 0;
             GameStat.positionColl[0] = new float3(0.05f, 0.07f, 0.47f);
             SceneManager.LoadScene("SampleScene");
         }

@@ -8,6 +8,7 @@ namespace Script.Game
         public static int NiveauHdv;
 
         public static int collecteur;
+        public static int caserne;
         public static float3[] positionColl = new float3[10];
     }
 }

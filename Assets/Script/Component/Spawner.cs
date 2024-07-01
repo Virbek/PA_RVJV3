@@ -7,6 +7,8 @@ namespace Script.Component
         public Entity WarPrefab;
         public Entity ArrPrefab;
         public Entity GeaPrefab;
+        public Entity BallPrefab;
+        public Entity BallDefPrefab;
         public Entity GoldPrefab;
     }
 }

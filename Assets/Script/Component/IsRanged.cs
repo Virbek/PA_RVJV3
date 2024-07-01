@@ -1,6 +1,8 @@
-﻿namespace Script.Component
+﻿using Unity.Entities;
+
+namespace Script.Component
 {
-    public class IsRanged
+    public struct IsRanged : IComponentData
     {
         
     }

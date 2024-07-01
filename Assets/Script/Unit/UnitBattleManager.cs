@@ -11,17 +11,23 @@ public class UnitBattleManager : MonoBehaviour
     public int numberWar;
     public int numberArr;
     public int numberGea;
+    public int numberBall;
+    public int numberBallDef;
     private Camera _mainCamera;
     [SerializeField] private LayerMask ground;
     private bool _isFollowing;
     private bool _isWar;
     private bool _isArr;
     private bool _isGea;
+    private bool _isBall;
+    private bool _isBallDef;
     private GameObject prefabInstance;
     private Entity entity;
     private float timeToSpawn;
     [SerializeField] private float delaySpawn;
     [SerializeField] private GameObject geant;
+    [SerializeField] private GameObject ballon;
+    [SerializeField] private GameObject ballonDef;
 
     private void Start()
     {
@@ -29,6 +35,8 @@ public class UnitBattleManager : MonoBehaviour
         numberArr = NumberUnit.archer;
         numberWar = NumberUnit.guerrier;
         numberGea = NumberUnit.geant;
+        numberBall = NumberUnit.ballon;
+        numberBallDef = NumberUnit.ballonDef;
         _mainCamera = Camera.main;
     }
     
@@ -38,12 +46,22 @@ public class UnitBattleManager : MonoBehaviour
         {
             geant.SetActive(true);
         }
+        if (GameStat.NiveauHdv > 2)
+        {
+            ballon.SetActive(true);
+        }
+        if (GameStat.NiveauHdv > 3)
+        {
+            ballonDef.SetActive(true);
+        }
         if (Input.GetMouseButtonDown(0))
         {
             _isFollowing = false;
             _isWar = false;
             _isArr = false;
             _isGea = false;
+            _isBall = false;
+            _isBallDef = false;
             Destroy(prefabInstance);
         }
         
@@ -100,6 +118,40 @@ public class UnitBattleManager : MonoBehaviour
                     {
                         _isFollowing = false;
                         _isGea = false;
+                        Destroy(prefabInstance);
+                    }
+                }
+                if (_isBall)
+                {
+                    Vector3 mousePos = Input.mousePosition;
+                    mousePos.y += 10;
+                    Ray ray = _mainCamera.ScreenPointToRay(mousePos);
+                    if (Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity,ground))
+                    {
+                        InvokeBall(prefabInstance.transform.position);
+                        numberBall -= 1;
+                    }
+                    if (numberBall == 0)
+                    {
+                        _isFollowing = false;
+                        _isBall = false;
+                        Destroy(prefabInstance);
+                    }
+                }
+                if (_isBallDef)
+                {
+                    Vector3 mousePos = Input.mousePosition;
+                    mousePos.y += 10;
+                    Ray ray = _mainCamera.ScreenPointToRay(mousePos);
+                    if (Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity,ground))
+                    {
+                        InvokeBallDef(prefabInstance.transform.position);
+                        numberBallDef -= 1;
+                    }
+                    if (numberBall == 0)
+                    {
+                        _isFollowing = false;
+                        _isBall = false;
                         Destroy(prefabInstance);
                     }
                 }
@@ -204,6 +256,64 @@ public class UnitBattleManager : MonoBehaviour
         {
             wantToSpawn = true,
             unit = 2,
+            position = position
+        });
+        
+    }
+    
+    public void SpawnBall(GameObject ball)
+    {
+        if (numberBall > 0)
+        {
+            var mousePos = Input.mousePosition;
+            mousePos.y += 10;
+            prefabInstance = Instantiate(ball, mousePos, Quaternion.identity);
+            _isFollowing = true;
+            _isBall = true;
+        }
+        
+    }
+
+    public void InvokeBall(Vector3 position)
+    {
+        
+        var query = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(
+            typeof(WantToSpawn)
+        );
+
+        query.SetSingleton(new WantToSpawn()
+        {
+            wantToSpawn = true,
+            unit = 3,
+            position = position
+        });
+        
+    }
+    
+    public void SpawnBallDef(GameObject ball)
+    {
+        if (numberBallDef > 0)
+        {
+            var mousePos = Input.mousePosition;
+            mousePos.y += 10;
+            prefabInstance = Instantiate(ball, mousePos, Quaternion.identity);
+            _isFollowing = true;
+            _isBallDef = true;
+        }
+        
+    }
+
+    public void InvokeBallDef(Vector3 position)
+    {
+        
+        var query = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(
+            typeof(WantToSpawn)
+        );
+
+        query.SetSingleton(new WantToSpawn()
+        {
+            wantToSpawn = true,
+            unit = 4,
             position = position
         });
         

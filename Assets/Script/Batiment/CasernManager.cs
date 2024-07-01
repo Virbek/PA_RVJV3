@@ -10,11 +10,14 @@ public class CasernManager : MonoBehaviour
 {
     [SerializeField] private GameObject selectionUnit;
     [SerializeField] private GameObject Geant;
+    [SerializeField] private GameObject Ballon;
+    [SerializeField] private GameObject BallonDef;
     private Camera _mainCamera;
     private List<GameObject> _unit;
     private float timeToSpawn = 0;
     private List<GameObject> unit = new List<GameObject>();
     [SerializeField]private int nombreUnitInCamp;
+    private int numberUnit;
     [SerializeField] private LayerMask caserne;
     [SerializeField] private LayerMask ui;
     [SerializeField]private BoxCollider camp;
@@ -23,12 +26,12 @@ public class CasernManager : MonoBehaviour
     void Start()
     {
         _mainCamera = Camera.main;
-        nombreUnitInCamp = 0;
     }
 
  
     void Update()
     {
+        numberUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon + NumberUnit.ballonDef;
         nombreGold = NumberRessources.gold;
         if (Input.GetMouseButton(0))
         {
@@ -50,6 +53,22 @@ public class CasernManager : MonoBehaviour
                 {
                     Geant.SetActive(false);
                 }
+                if(GameStat.NiveauHdv > 2)
+                {
+                    Ballon.SetActive(true);
+                }
+                else
+                {
+                    Ballon.SetActive(false);
+                }
+                if(GameStat.NiveauHdv > 3)
+                {
+                    BallonDef.SetActive(true);
+                }
+                else
+                {
+                    BallonDef.SetActive(false);
+                }
                 
             }
         }
@@ -70,11 +89,10 @@ public class CasernManager : MonoBehaviour
     {
         if (nombreGold >= 50)
         {
-            if (nombreUnitInCamp <= 50)
+            if (numberUnit  <= NumberUnit.numberUnitInCamp)
             {
                 unit.Add(war);
                 NumberUnit.guerrier += 1;
-                nombreUnitInCamp += 1;
                 NumberRessources.gold -= 50;
             }
         }
@@ -86,11 +104,10 @@ public class CasernManager : MonoBehaviour
     {
         if (nombreGold >= 50)
         {
-            if (nombreUnitInCamp <= 50)
+            if (numberUnit <= NumberUnit.numberUnitInCamp)
             {
                 unit.Add(arr);
                 NumberUnit.archer += 1;
-                nombreUnitInCamp += 1;
                 NumberRessources.gold -= 50;
             }
         }
@@ -101,12 +118,39 @@ public class CasernManager : MonoBehaviour
     {
         if (nombreGold >= 100)
         {
-            if (nombreUnitInCamp <= 50)
+            if (numberUnit <= NumberUnit.numberUnitInCamp)
             {
                 unit.Add(gea);
                 NumberUnit.geant += 1;
-                nombreUnitInCamp += 1;
                 NumberRessources.gold -= 100;
+            }
+        }
+        
+    }
+    
+    public void CreateBallon(GameObject ball)
+    {
+        if (nombreGold >= 75)
+        {
+            if (numberUnit <= NumberUnit.numberUnitInCamp)
+            {
+                unit.Add(ball);
+                NumberUnit.ballon += 1;
+                NumberRessources.gold -= 75;
+            }
+        }
+        
+    }
+    
+    public void CreateBallonDef(GameObject ball)
+    {
+        if (nombreGold >= 150)
+        {
+            if (numberUnit <= NumberUnit.numberUnitInCamp)
+            {
+                unit.Add(ball);
+                NumberUnit.ballonDef += 1;
+                NumberRessources.gold -= 150;
             }
         }
         

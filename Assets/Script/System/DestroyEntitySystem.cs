@@ -2,6 +2,8 @@ using Script.Component;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Transforms;
+using UnityEngine;
 
 namespace Script.System
 {
@@ -48,18 +50,30 @@ namespace Script.System
                     NumberUnit.archer -= 1;
                 }
             }
-            foreach (var (archerHealth,entity) in SystemAPI.Query<RefRO<NombrePv>>()
+            foreach (var (geantHealth,entity) in SystemAPI.Query<RefRO<NombrePv>>()
                          .WithAll<IsUnit>()
                          .WithAll<IsGeant>()
                          .WithEntityAccess())
             {
-                if (archerHealth.ValueRO.pv <= 0)
+                if (geantHealth.ValueRO.pv <= 0)
                 {
                     ecb.RemoveComponent<IsUnit>(entity);
                     ecb.AddComponent<Disabled>(entity);
                     NumberUnit.geant -= 1;
                 }
             }
+
+            foreach (var (arrowTransform, entity)
+                     in SystemAPI.Query<RefRO<LocalTransform>>()
+                         .WithAll<IsProj>()
+                         .WithNone<Target>()
+                         .WithEntityAccess()
+                    )
+            {
+                ecb.RemoveComponent<IsProj>(entity);
+                ecb.AddComponent<Disabled>(entity);
+            }
+
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
         }

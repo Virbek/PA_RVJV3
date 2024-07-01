@@ -1,7 +1,10 @@
-﻿namespace Script.Component
+﻿using Unity.Entities;
+using UnityEngine;
+
+namespace Script.Component
 {
-    public class projectiles
+    public struct Projectiles : IComponentData
     {
-        
+        public Entity prefab;
     }
 }

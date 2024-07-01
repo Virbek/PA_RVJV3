@@ -12,6 +12,7 @@ namespace Script.Game
         [SerializeField] private GameObject uiConstruction;
 
         [SerializeField] private Text unit;
+        [SerializeField] private Text numberCamp;
         [SerializeField] private Text nivHdv;
 
         [SerializeField] private GameObject Niveau2;
@@ -41,8 +42,9 @@ namespace Script.Game
 
         private void Update()
         {
-            var nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant;
+            var nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon;
             unit.text = nombreUnit.ToString();
+            numberCamp.text = " / "+NumberUnit.numberUnitInCamp.ToString();
             nivHdv.text = GameStat.NiveauHdv.ToString();
 
             if (Input.GetMouseButtonDown(0))

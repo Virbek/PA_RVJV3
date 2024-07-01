@@ -20,7 +20,7 @@ namespace Script.Game
         void Update()
         {
             timeToPlay += Time.deltaTime;
-            nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant;
+            nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon;
             if (timeToPlay >= 1f)
             {
                 if (nombreUnit == 0) 
@@ -41,12 +41,12 @@ namespace Script.Game
                 if (NumberUnit.bat == 0)
                 {
                     timeToPlay += Time.deltaTime;
-                    GameStat.Niveau += 1;
                     if (timeToPlay >= 1f)
                     {
                         if (visible)
                         {
-                            if (GameStat.Niveau < 3)
+                            GameStat.Niveau += 1;
+                            if (GameStat.Niveau < 5)
                             {
                                 NumberRessources.charbon += 100;
                                 WinUI.SetActive(true);
