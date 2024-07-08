@@ -6,26 +6,17 @@ namespace Script.Game
 {
     public class SpawnerAfterGame : MonoBehaviour
     {
-        [SerializeField]private bool spawn;
-
-        private void Start()
-        {
-            spawn = false;
-        }
     
-        private void Update()
+        private void LateUpdate()
         {
-            if (!spawn)
+            if (GameStat.countSpawn < GameStat.collecteur)
             {
-                if (GameStat.collecteur != 0)
-                {
-                    for (int i = 0; i < GameStat.collecteur; i++)
-                    {
-                        InvokeColl(GameStat.positionColl[i]);
-                    }
-                }
+                
+                var pos = new Vector3(GameStat.positionColl[GameStat.countSpawn].x, GameStat.positionColl[GameStat.countSpawn].y, GameStat.positionColl[GameStat.countSpawn].z);
+                InvokeColl(pos);
+                    
 
-                spawn = true;
+          
             }
         }
     
@@ -43,7 +34,6 @@ namespace Script.Game
                 unit = 5,
                 position = position
             });
-        
         }
     }
 }

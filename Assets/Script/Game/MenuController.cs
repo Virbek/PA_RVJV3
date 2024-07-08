@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Script.Component;
+using Script.Game.System;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -12,18 +13,17 @@ namespace Script.Game
     {
         [SerializeField] private GameObject menu;
         [SerializeField] private GameObject optionsPanel;
-        [SerializeField] private Dropdown resolutionDropdown;
-        [SerializeField] private Toggle fullscreenToggle;
-        [SerializeField] private Button applyButton;
-
-        private List<Resolution> resolutions;
+       
+        
 
         void Start()
         {
-            PopulateResolutionDropdown();
+            GameStat.hasSpawnBat = false;
             GameStat.collecteur = 0;
+            GameStat.countSpawn = 0;
             GameStat.caserne = 0;
-            applyButton.onClick.AddListener(ApplySettings);
+            GameStat.maxCollecteur = 3;
+            GameStat.maxCaserne = 1;
         }
 
         public void Option()
@@ -33,19 +33,19 @@ namespace Script.Game
                 menu.SetActive(false);
                 optionsPanel.SetActive(true);
             }
-            else
-            {
-            }
         }
 
-        public void jouer()
+        public void Jouer()
         {
             World.DefaultGameObjectInjectionWorld.EntityManager.CreateSingleton<WantToSpawn>();
-            GameStat.collecteur += 1;
+            NumberUnit.unitToSpawn = 0;
+            RessourcesLimit.maxGold = 1500;
+            GameStat.collecteur = 1;
             GameStat.caserne += 1;
-            GameStat.NiveauHdv = 1;
-            GameStat.Niveau = 0;
+            GameStat.NiveauHdv = 3;
+            GameStat.Niveau =3;
             GameStat.positionColl[0] = new float3(0.05f, 0.07f, 0.47f);
+            SceneManager.LoadScene("BaseScene", LoadSceneMode.Additive);
             SceneManager.LoadScene("SampleScene");
         }
 
@@ -54,14 +54,12 @@ namespace Script.Game
             Application.Quit();
         }
 
-        public GameObject Panel;
-        bool visible = false;
-
-        void Update()
+        public void Update()
         {
-            GameStat.collecteur = 0;
-            GameStat.NiveauHdv = 1;
-            GameStat.Niveau = 1;
+            GameStat.collecteur = 1;
+            GameStat.maxCollecteur = 3;
+            GameStat.NiveauHdv = 3;
+            GameStat.Niveau = 3;
             NumberRessources.gold = 0;
             NumberRessources.charbon = 0;
             NumberUnit.guerrier = 0;
@@ -71,42 +69,11 @@ namespace Script.Game
         
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                visible = !visible;
-                Panel.SetActive(visible);
+                optionsPanel.SetActive(false);
+                menu.SetActive(true);
+                
             }
         }
-
-        void PopulateResolutionDropdown()
-        {
-            resolutionDropdown.ClearOptions();
-            resolutions = new List<Resolution>(Screen.resolutions);
-            List<string> options = new List<string>();
-
-            int currentResolutionIndex = 0;
-            for (int i = 0; i < resolutions.Count; i++)
-            {
-                string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate + "Hz";
-                options.Add(option);
-
-                if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-                {
-                    currentResolutionIndex = i;
-                }
-            }
-
-            resolutionDropdown.AddOptions(options);
-            resolutionDropdown.value = currentResolutionIndex;
-            resolutionDropdown.RefreshShownValue();
-        }
-
-        public void ApplySettings()
-        {
-            int selectedResolutionIndex = resolutionDropdown.value;
-            Resolution selectedResolution = resolutions[selectedResolutionIndex];
-            bool isFullscreen = fullscreenToggle.isOn;
-
-            Screen.SetResolution(selectedResolution.width, selectedResolution.height, isFullscreen,
-                selectedResolution.refreshRate);
-        }
+        
     }
 }

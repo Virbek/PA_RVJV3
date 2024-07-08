@@ -8,9 +8,10 @@ using NotImplementedException = System.NotImplementedException;
 
 namespace Script.System
 {
-    [BurstCompile]
+   
     partial struct FindTargetForBatSystem : ISystem
     {
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);

@@ -12,6 +12,13 @@ public class CasernManager : MonoBehaviour
     [SerializeField] private GameObject Geant;
     [SerializeField] private GameObject Ballon;
     [SerializeField] private GameObject BallonDef;
+    
+    [SerializeField] private GameObject prefabGuerrier;
+    [SerializeField] private GameObject prefabArcher;
+    [SerializeField] private GameObject prefabGeant;
+    [SerializeField] private GameObject prefabBallon;
+    [SerializeField] private GameObject prefabBallonDef;
+    
     private Camera _mainCamera;
     private List<GameObject> _unit;
     private float timeToSpawn = 0;
@@ -22,15 +29,18 @@ public class CasernManager : MonoBehaviour
     [SerializeField] private LayerMask ui;
     [SerializeField]private BoxCollider camp;
     private int nombreGold;
+    private int countUnit;
 
     void Start()
     {
         _mainCamera = Camera.main;
+        countUnit = 0;
     }
 
  
     void Update()
     {
+        RespawnUnit();
         numberUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon + NumberUnit.ballonDef;
         nombreGold = NumberRessources.gold;
         if (Input.GetMouseButton(0))
@@ -181,6 +191,49 @@ public class CasernManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
         return results;
+    }
+
+    private void RespawnUnit()
+    {
+        if (NumberUnit.unitToSpawn > 0)
+        {
+            if (countUnit < NumberUnit.guerrier)
+            {
+                var newWar = Instantiate(prefabGuerrier, transform.position, Quaternion.identity);
+                newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                countUnit += 1;
+                NumberUnit.unitToSpawn -= 1;
+            }else if (countUnit < NumberUnit.guerrier + NumberUnit.archer)
+            {
+                var newWar = Instantiate(prefabArcher, transform.position, Quaternion.identity);
+                newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                countUnit += 1;
+                NumberUnit.unitToSpawn -= 1;
+                
+            }else if (countUnit < NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant)
+            {
+                var newWar = Instantiate(prefabGeant, transform.position, Quaternion.identity);
+                newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                countUnit += 1;
+                NumberUnit.unitToSpawn -= 1;
+                
+            }else if (countUnit < NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon)
+            {
+                var newWar = Instantiate(prefabBallon, transform.position, Quaternion.identity);
+                newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                countUnit += 1;
+                NumberUnit.unitToSpawn -= 1;
+                
+            }
+            else if (countUnit < NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon + NumberUnit.ballonDef)
+            {
+                var newWar = Instantiate(prefabBallonDef, transform.position, Quaternion.identity);
+                newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                countUnit += 1;
+                NumberUnit.unitToSpawn -= 1;
+                
+            }
+        }
     }
     
     

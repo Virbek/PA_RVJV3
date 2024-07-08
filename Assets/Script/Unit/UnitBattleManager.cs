@@ -148,7 +148,7 @@ public class UnitBattleManager : MonoBehaviour
                         InvokeBallDef(prefabInstance.transform.position);
                         numberBallDef -= 1;
                     }
-                    if (numberBall == 0)
+                    if (numberBallDef == 0)
                     {
                         _isFollowing = false;
                         _isBall = false;

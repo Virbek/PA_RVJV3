@@ -13,6 +13,7 @@ public struct NumberUnit
     public static int ballonDef;
 
     public static int numberUnitInCamp;
+    public static int unitToSpawn;
     
     public static float3[] positionUnit;
 }

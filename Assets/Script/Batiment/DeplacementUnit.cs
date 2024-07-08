@@ -15,9 +15,8 @@ public class DeplacementUnit : MonoBehaviour
 
         // Générer une position aléatoire à l'intérieur des limites
         float x = Random.Range(bounds.min.x, bounds.max.x);
-        float y = Random.Range(bounds.min.y, bounds.max.y);
         float z = Random.Range(bounds.min.z, bounds.max.z);
-        var randomPosition = new Vector3(x, y, z);
+        var randomPosition = new Vector3(x, 3, z);
         agent.SetDestination(randomPosition);
     }
 

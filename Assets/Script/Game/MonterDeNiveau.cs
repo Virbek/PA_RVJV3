@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Script.Game.System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -40,6 +41,9 @@ namespace Script.Game
             if (NumberRessources.charbon >= 100)
             {
                 GameStat.NiveauHdv += 1;
+                GameStat.maxCollecteur += 2;
+                GameStat.maxCaserne += 1;
+                RessourcesLimit.maxGold += 1500;
                 NumberRessources.charbon -= 100;
             }
         }

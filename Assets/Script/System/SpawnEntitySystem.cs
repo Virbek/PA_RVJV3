@@ -1,4 +1,5 @@
 ﻿using Script.Component;
+using Script.Game;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -88,16 +89,6 @@ namespace Script.System
                     });
                 }
                 
-                if (spawnSingleton.unit == 5)
-                {
-                    var ent = ecb.Instantiate(spawnerComponent.ValueRO.GoldPrefab);
-                    ecb.SetComponent(ent, new LocalTransform
-                    {
-                        Position = spawnSingleton.position,
-                        Rotation = quaternion.identity,
-                        Scale = 1f
-                    });
-                }
             }
 
             ecb.Playback(state.EntityManager);

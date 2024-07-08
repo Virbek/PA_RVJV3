@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Script.Game.System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Script.Game
@@ -14,12 +16,18 @@ namespace Script.Game
         [SerializeField] private Text unit;
         [SerializeField] private Text numberCamp;
         [SerializeField] private Text nivHdv;
+        [SerializeField] private Text numberCollecteur;
+        [SerializeField] private Text maxCollecteur;
+        [SerializeField] private GameObject Escape;
+        private bool visible;
+        
 
         [SerializeField] private GameObject Niveau2;
         // Start is called before the first frame update
 
         private void Start()
         {
+            visible = false;
         }
 
         public void UiCampagne()
@@ -42,10 +50,15 @@ namespace Script.Game
 
         private void Update()
         {
-            var nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon;
+            Escape.SetActive(visible);
+            var nombreUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon + NumberUnit.ballonDef;
             unit.text = nombreUnit.ToString();
             numberCamp.text = " / "+NumberUnit.numberUnitInCamp.ToString();
             nivHdv.text = GameStat.NiveauHdv.ToString();
+
+            numberCollecteur.text = GameStat.collecteur.ToString();
+            maxCollecteur.text = "/ " + GameStat.maxCollecteur.ToString();
+                
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -54,6 +67,11 @@ namespace Script.Game
                     uiCampagne.SetActive(false);
                     uiConstruction.SetActive(false);
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                visible = !visible;
             }
         }
     
@@ -74,6 +92,16 @@ namespace Script.Game
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
             return results;
+        }
+
+        public void Reprendre()
+        {
+            visible = !visible;
+        }
+
+        public void Quitter()
+        {
+            SceneManager.LoadScene("MenuScene");
         }
     }
 }

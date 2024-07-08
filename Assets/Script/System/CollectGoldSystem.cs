@@ -1,4 +1,6 @@
 ﻿using Script.Component;
+using Script.Game;
+using Script.Game.System;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -11,7 +13,7 @@ namespace Script.System
 
         public void OnUpdate(ref SystemState state)
         {
-            if (NumberRessources.gold <= 1500)
+            if (NumberRessources.gold <= RessourcesLimit.maxGold)
             {
                 foreach (var (timeToCollect, entity) in SystemAPI.Query<RefRW<Collectable>>()
                              .WithAll<IsRessourceGold>()

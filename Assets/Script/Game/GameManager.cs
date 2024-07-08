@@ -56,7 +56,8 @@ namespace Script.Game
                             {
                                 Fin.SetActive(true);
                             }
-                        
+
+                            NumberUnit.unitToSpawn = nombreUnit;
                         }
                     }
                 } 
@@ -66,6 +67,8 @@ namespace Script.Game
 
         public void RetourBase()
         {
+            GameStat.hasSpawnBat = false;
+            GameStat.countSpawn = 0;
             SceneManager.LoadScene("SampleScene");
         }
 

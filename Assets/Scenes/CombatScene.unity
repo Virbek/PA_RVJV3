@@ -2646,12 +2646,14 @@ MonoBehaviour:
   numberArr: 0
   numberGea: 0
   numberBall: 0
+  numberBallDef: 0
   ground:
     serializedVersion: 2
     m_Bits: 64
   delaySpawn: 0.1
   geant: {fileID: 585332804}
   ballon: {fileID: 301820297}
+  ballonDef: {fileID: 0}
 --- !u!1 &1787936535
 GameObject:
   m_ObjectHideFlags: 0
