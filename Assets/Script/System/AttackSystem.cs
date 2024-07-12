@@ -6,12 +6,14 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Script.System
 {
     [BurstCompile]
     public partial struct AttackSystem : ISystem
     {
+
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);

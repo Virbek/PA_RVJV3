@@ -17,6 +17,7 @@ public class  BatimentManager : MonoBehaviour
 
     private bool _isCas;
     private bool _isCol;
+    private bool _isCab;
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class  BatimentManager : MonoBehaviour
         _mainCamera = Camera.main;
         _isCas = false;
         _isCol = false;
+        _isCab = false;
 
     }
 
@@ -44,6 +46,13 @@ public class  BatimentManager : MonoBehaviour
                 _isFollowing = false;
                 _isCas = false;
             }
+            if (_isCab)
+            {
+                InvokeBatCab(_prefabInstance.transform.position);
+                Destroy(_prefabInstance);
+                _isFollowing = false;
+                _isCab = false;
+            }
             
 
         }
@@ -56,7 +65,6 @@ public class  BatimentManager : MonoBehaviour
     
     private void FollowMouse()
     {
-        
         Vector3 mousePos = Input.mousePosition;
         Ray ray = _mainCamera.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity,ground))
@@ -76,6 +84,16 @@ public class  BatimentManager : MonoBehaviour
             _prefabInstance = Instantiate(bat, Input.mousePosition, Quaternion.identity);
             _isFollowing = true;
             _isCol = true;
+        }
+            
+    }
+    public void SetBatCab(GameObject bat)
+    {
+        if (GameStat.cabane < GameStat.maxCabane)
+        {
+            _prefabInstance = Instantiate(bat, Input.mousePosition, Quaternion.identity);
+            _isFollowing = true;
+            _isCab = true;
         }
             
     }
@@ -103,6 +121,22 @@ public class  BatimentManager : MonoBehaviour
         {
             wantToSpawn = true,
             unit = 5,
+            position = position
+        });
+        
+    }
+    public void InvokeBatCab(Vector3 position)
+    {
+        GameStat.cabane += 1;
+        GameStat.positionCab[GameStat.cabane - 1] = position;
+        var query = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(
+            typeof(WantToSpawn)
+        );
+
+        query.SetSingleton(new WantToSpawn()
+        {
+            wantToSpawn = true,
+            unit = 12,
             position = position
         });
         

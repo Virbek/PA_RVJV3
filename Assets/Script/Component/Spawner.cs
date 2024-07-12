@@ -10,5 +10,13 @@ namespace Script.Component
         public Entity BallPrefab;
         public Entity BallDefPrefab;
         public Entity GoldPrefab;
+        public Entity DestroyPrefab;
+        public Entity Level1Prefab;
+        public Entity Level2Prefab;
+        public Entity Level3Prefab;
+        public Entity Level4Prefab;
+        public Entity TreePrefab;
+        public Entity CabanePrefab;
+        
     }
 }

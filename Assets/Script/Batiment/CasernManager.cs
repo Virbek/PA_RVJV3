@@ -34,12 +34,15 @@ public class CasernManager : MonoBehaviour
     void Start()
     {
         _mainCamera = Camera.main;
-        countUnit = 0;
     }
 
  
     void Update()
     {
+        if (NumberUnit.unitToSpawn == 0)
+        {
+            countUnit = 0;
+        }
         RespawnUnit();
         numberUnit = NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon + NumberUnit.ballonDef;
         nombreGold = NumberRessources.gold;
@@ -86,7 +89,7 @@ public class CasernManager : MonoBehaviour
         if (unit.Count>0)
         {
             timeToSpawn += Time.deltaTime;
-            if (timeToSpawn >= 1.0f )
+            if (timeToSpawn >= 0.1f )
             {
                 SpawnerUnit(unit[0]);
                 unit.Remove(unit[0]);
@@ -171,6 +174,7 @@ public class CasernManager : MonoBehaviour
        
         var newWar = Instantiate(u, transform.position, Quaternion.identity);
         newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+        newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
         
     }
     
@@ -195,18 +199,22 @@ public class CasernManager : MonoBehaviour
 
     private void RespawnUnit()
     {
+        Debug.Log(NumberUnit.unitToSpawn);
+        Debug.Log(NumberUnit.guerrier + NumberUnit.archer + NumberUnit.geant + NumberUnit.ballon+ NumberUnit.ballonDef);
         if (NumberUnit.unitToSpawn > 0)
         {
             if (countUnit < NumberUnit.guerrier)
             {
                 var newWar = Instantiate(prefabGuerrier, transform.position, Quaternion.identity);
                 newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
                 countUnit += 1;
                 NumberUnit.unitToSpawn -= 1;
             }else if (countUnit < NumberUnit.guerrier + NumberUnit.archer)
             {
                 var newWar = Instantiate(prefabArcher, transform.position, Quaternion.identity);
                 newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
                 countUnit += 1;
                 NumberUnit.unitToSpawn -= 1;
                 
@@ -214,6 +222,7 @@ public class CasernManager : MonoBehaviour
             {
                 var newWar = Instantiate(prefabGeant, transform.position, Quaternion.identity);
                 newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
                 countUnit += 1;
                 NumberUnit.unitToSpawn -= 1;
                 
@@ -221,6 +230,7 @@ public class CasernManager : MonoBehaviour
             {
                 var newWar = Instantiate(prefabBallon, transform.position, Quaternion.identity);
                 newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
                 countUnit += 1;
                 NumberUnit.unitToSpawn -= 1;
                 
@@ -229,6 +239,7 @@ public class CasernManager : MonoBehaviour
             {
                 var newWar = Instantiate(prefabBallonDef, transform.position, Quaternion.identity);
                 newWar.GetComponent<DeplacementUnit>().boxCollider = camp;
+                newWar.transform.SetParent(SceneControler.Instance.Troupes.transform, true);
                 countUnit += 1;
                 NumberUnit.unitToSpawn -= 1;
                 

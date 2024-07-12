@@ -11,17 +11,51 @@ public class UnitManager : MonoBehaviour
 {
     private void Update()
     {
-        NumberUnit.numberUnitInCamp = GameStat.caserne * 50;
+        NumberUnit.numberUnitInCamp = GameStat.caserne * 100;
     }
 
     public void Niveau1()
     {
-        SceneManager.LoadScene("CombatScene");
+        Destroy(SceneControler.Instance.Troupes);
+        SceneControler.Instance.InvokeDestroyer(new Vector3());
+        GameStat.startBattle = true;
+        GameStat.levelHasSpawn = true;
+        GameStat.level = 1;
+        SceneControler.Instance.BaseScene.SetActive(false);
+        SceneControler.Instance.Niveau1.SetActive(true);
     }
     
     public void Niveau2()
     {
-        SceneManager.LoadScene("Niveau2Scene");
+        Destroy(SceneControler.Instance.Troupes);
+        SceneControler.Instance.InvokeDestroyer(new Vector3());
+        GameStat.startBattle = true;
+        GameStat.levelHasSpawn = true;
+        GameStat.level = 2;
+        SceneControler.Instance.BaseScene.SetActive(false);
+        SceneControler.Instance.Niveau1.SetActive(true);
+    }
+    
+    public void Niveau3()
+    {
+        Destroy(SceneControler.Instance.Troupes);
+        SceneControler.Instance.InvokeDestroyer(new Vector3());
+        GameStat.startBattle = true;
+        GameStat.levelHasSpawn = true;
+        GameStat.level = 3;
+        SceneControler.Instance.BaseScene.SetActive(false);
+        SceneControler.Instance.Niveau1.SetActive(true);
+    }
+    
+    public void Niveau4()
+    {
+        Destroy(SceneControler.Instance.Troupes);
+        SceneControler.Instance.InvokeDestroyer(new Vector3());
+        GameStat.startBattle = true;
+        GameStat.levelHasSpawn = true;
+        GameStat.level = 4;
+        SceneControler.Instance.BaseScene.SetActive(false);
+        SceneControler.Instance.Niveau1.SetActive(true);
     }
     
     

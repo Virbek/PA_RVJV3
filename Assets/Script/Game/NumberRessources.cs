@@ -6,5 +6,6 @@ public struct NumberRessources
 {
     public static int gold;
     public static int charbon;
+    public static int bois;
 
 }

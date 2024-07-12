@@ -31,17 +31,22 @@ public class UnitBattleManager : MonoBehaviour
 
     private void Start()
     {
-        timeToSpawn = 0f;
-        numberArr = NumberUnit.archer;
-        numberWar = NumberUnit.guerrier;
-        numberGea = NumberUnit.geant;
-        numberBall = NumberUnit.ballon;
-        numberBallDef = NumberUnit.ballonDef;
         _mainCamera = Camera.main;
     }
     
     void Update()
     {
+
+        if (GameStat.startBattle)
+        {
+            timeToSpawn = 0f;
+            numberArr = NumberUnit.archer;
+            numberWar = NumberUnit.guerrier;
+            numberGea = NumberUnit.geant;
+            numberBall = NumberUnit.ballon;
+            numberBallDef = NumberUnit.ballonDef;
+            GameStat.startBattle = false;
+        }
         if (GameStat.NiveauHdv > 1)
         {
             geant.SetActive(true);

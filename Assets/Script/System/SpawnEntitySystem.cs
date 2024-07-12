@@ -6,11 +6,13 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace Script.System
 {
     public partial struct SpawnEntitySystem : ISystem
     {
+        
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<WantToSpawn>();
@@ -42,22 +44,32 @@ namespace Script.System
                 if (spawnSingleton.unit == 0)
                 {
                     var ent = ecb.Instantiate(spawnerComponent.ValueRO.WarPrefab);
+                    
+                    ecb.SetComponent(ent, new LocalTransform
+                    {
+                        Position = spawnSingleton.position,
+                      
+                        Rotation = quaternion.identity,
+                        Scale = 1f
+                    });
+                    ecb.SetComponent(ent, new PhysicsVelocity
+                    {
+                        Angular = float3.zero
+                    });
+                    
+                }
+                else if (spawnSingleton.unit == 1 )
+                {
+                    var ent = ecb.Instantiate(spawnerComponent.ValueRO.ArrPrefab);
                     ecb.SetComponent(ent, new LocalTransform
                     {
                         Position = spawnSingleton.position,
                         Rotation = quaternion.identity,
                         Scale = 1f
                     });
-                }
-                else if (spawnSingleton.unit == 1 )
-                {
-                    var ent = ecb.Instantiate(spawnerComponent.ValueRO.ArrPrefab);
-                    ecb.RemoveComponent<PhysicsMass>(ent);
-                    ecb.SetComponent(ent, new LocalTransform
+                    ecb.SetComponent(ent, new PhysicsVelocity
                     {
-                        Position = spawnSingleton.position,
-                        Rotation = quaternion.identity,
-                        Scale = 1f
+                        Angular = float3.zero
                     });
                 }
                 else if (spawnSingleton.unit == 2 )
@@ -69,6 +81,11 @@ namespace Script.System
                         Rotation = quaternion.identity,
                         Scale = 1f
                     });
+                    ecb.SetComponent(ent, new PhysicsVelocity
+                    {
+                        Angular = float3.zero
+                    });
+                    
                 }else if (spawnSingleton.unit == 3 )
                 {
                     var ent = ecb.Instantiate(spawnerComponent.ValueRO.BallPrefab);
@@ -78,6 +95,10 @@ namespace Script.System
                         Rotation = quaternion.identity,
                         Scale = 1f
                     });
+                    ecb.SetComponent(ent, new PhysicsVelocity
+                    {
+                        Angular = float3.zero
+                    });
                 }else if (spawnSingleton.unit == 4 )
                 {
                     var ent = ecb.Instantiate(spawnerComponent.ValueRO.BallDefPrefab);
@@ -86,6 +107,10 @@ namespace Script.System
                         Position = spawnSingleton.position,
                         Rotation = quaternion.identity,
                         Scale = 1f
+                    });
+                    ecb.SetComponent(ent, new PhysicsVelocity
+                    {
+                        Angular = float3.zero
                     });
                 }
                 

@@ -50,5 +50,9 @@ MonoBehaviour:
     type: 3}
   geaprefab: {fileID: 8035523961386091077, guid: 1ebbe91618c6f434f91c8669c3f46620,
     type: 3}
+  ballprefab: {fileID: 1981776002970163247, guid: fa5187782814b84468571884169bcc78,
+    type: 3}
+  ballDefprefab: {fileID: 8035523961386091077, guid: 4e27643c1d38f6242aa786c91661e316,
+    type: 3}
   GoldPrefab: {fileID: 855862222178867553, guid: 6bbc4eed619b98b459472cc61a5cf32b,
     type: 3}

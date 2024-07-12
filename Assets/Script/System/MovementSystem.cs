@@ -1,4 +1,5 @@
 using Script.Component;
+using Script.Game;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -18,6 +19,7 @@ namespace Script.System
             foreach (var (localTransform, speed, range, target,entity) 
                      in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Speed>, RefRO<RangeAttack>, RefRO<Target>>()
                          .WithAll<IsUnit>()
+                         .WithNone<GoHome>()
                          .WithAll<Move>()
                          .WithEntityAccess()
                     )

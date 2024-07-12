@@ -1,5 +1,10 @@
 using System.Collections.Generic;
+using NUnit.Framework.Internal;
+using Script.Component;
 using Script.Game.System;
+using Script.System;
+using Unity.Entities;
+using Unity.Scenes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -9,7 +14,6 @@ namespace Script.Game
 {
     public class UiManager : MonoBehaviour
     {
-
         [SerializeField] private GameObject uiCampagne;
         [SerializeField] private GameObject uiConstruction;
 
@@ -23,10 +27,14 @@ namespace Script.Game
         
 
         [SerializeField] private GameObject Niveau2;
+        [SerializeField] private GameObject Niveau3;
+        [SerializeField] private GameObject Niveau4;
         // Start is called before the first frame update
 
         private void Start()
         {
+            // Obtenez le système à partir du World
+            Time.timeScale = 1;
             visible = false;
         }
 
@@ -36,10 +44,29 @@ namespace Script.Game
             if (GameStat.Niveau < 2 )
             {
                 Niveau2.SetActive(false);
+                Niveau3.SetActive(false);
+                Niveau4.SetActive(false);
+                
+            }
+            else if (GameStat.Niveau < 3 )
+            {
+                Niveau2.SetActive(true);
+                Niveau3.SetActive(false);
+                Niveau4.SetActive(false);
+                
+            }
+            else if (GameStat.Niveau < 4 )
+            {
+                Niveau2.SetActive(true);
+                Niveau3.SetActive(true);
+                Niveau4.SetActive(false);
+                
             }
             else
             {
                 Niveau2.SetActive(true);
+                Niveau3.SetActive(true);
+                Niveau4.SetActive(true);
             }
         }
     
@@ -71,6 +98,14 @@ namespace Script.Game
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                if (!visible)
+                {
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                }
                 visible = !visible;
             }
         }
@@ -96,12 +131,20 @@ namespace Script.Game
 
         public void Reprendre()
         {
+            Time.timeScale = 1;
             visible = !visible;
         }
 
         public void Quitter()
         {
-            SceneManager.LoadScene("MenuScene");
+            Time.timeScale = 1;
+            SceneControler.Instance.InvokeDestroyer(new Vector3());
+            Destroy(SceneControler.Instance.Troupes);
+            visible = !visible;
+            SceneControler.Instance.BaseScene.SetActive(false);
+            SceneControler.Instance.MenuScene.SetActive(true);
         }
+        
+       
     }
 }

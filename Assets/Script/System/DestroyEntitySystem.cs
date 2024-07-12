@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Script.Component;
 using Unity.Burst;
 using Unity.Collections;
@@ -9,9 +10,11 @@ namespace Script.System
 {
     partial struct DestroyEntitySystem : ISystem
     {
+        
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
+            var destroyEntity = Entity.Null;
             foreach(var (health, entity) in SystemAPI.Query<RefRO<NombrePv>>()
                         .WithAll<IsBat>()
                         .WithEntityAccess()
@@ -73,7 +76,55 @@ namespace Script.System
                 ecb.RemoveComponent<IsProj>(entity);
                 ecb.AddComponent<Disabled>(entity);
             }
+            
+            foreach (var (localTransform, entity) in SystemAPI.Query<RefRO<LocalTransform>>()
+                         .WithAll<DestroyOther>()
+                         .WithEntityAccess())
+            {
+                foreach (var (unitTransform,unitEntity) in SystemAPI.Query<RefRO<LocalTransform>>().WithAll<IsUnit>().WithEntityAccess())
+                {
+                    ecb.RemoveComponent<IsUnit>(unitEntity);
+                    ecb.AddComponent<Disabled>(unitEntity);
+                }
+                foreach (var (projTransform,projEntity) in SystemAPI.Query<RefRO<LocalTransform>>().WithAll<IsProj>().WithEntityAccess())
+                {
+                    ecb.RemoveComponent<IsProj>(projEntity);
+                    ecb.AddComponent<Disabled>(projEntity);
+                }
 
+                foreach (var (batTransform, batEntity) in SystemAPI.Query<RefRO<LocalTransform>>()
+                             .WithAll<IsBat>()
+                             .WithEntityAccess()
+                        )
+                {
+                    ecb.RemoveComponent<IsBat>(batEntity);
+                    ecb.AddComponent<Disabled>(batEntity);
+                }
+                foreach (var (collTransform, collEntity) in SystemAPI.Query<RefRO<LocalTransform>>()
+                             .WithAll<IsRessourceGold>()
+                             .WithEntityAccess()
+                        )
+                {
+                    ecb.RemoveComponent<IsRessourceGold>(collEntity);
+                    ecb.AddComponent<Disabled>(collEntity);
+                }
+                foreach (var (cabTransform, cabEntity) in SystemAPI.Query<RefRO<LocalTransform>>()
+                             .WithAll<IsCab>()
+                             .WithEntityAccess()
+                        )
+                {
+                    ecb.RemoveComponent<IsCab>(cabEntity);
+                    ecb.AddComponent<Disabled>(cabEntity);
+                }
+
+                destroyEntity = entity;
+            }
+
+            if (destroyEntity != Entity.Null)
+            {
+                ecb.RemoveComponent<DestroyOther>(destroyEntity);
+                ecb.AddComponent<Disabled>(destroyEntity);
+            }
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
         }
